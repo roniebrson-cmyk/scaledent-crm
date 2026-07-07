@@ -15,13 +15,31 @@ function limpar(v: FormDataEntryValue | null): string | null {
 export async function criarLead(formData: FormData) {
   const supabase = await createClient()
 
+  const nome_lead = limpar(formData.get('nome_lead'))
+  const telefone = limpar(formData.get('telefone'))
+  const instagram = limpar(formData.get('instagram'))
+  const email = limpar(formData.get('email'))
+  const cidade = limpar(formData.get('cidade'))
+
+  // Todos os campos do cadastro de lead são obrigatórios.
+  const faltando = [
+    !nome_lead && 'Nome',
+    !telefone && 'Telefone',
+    !instagram && 'Instagram',
+    !email && 'E-mail',
+    !cidade && 'Cidade',
+  ].filter(Boolean)
+  if (faltando.length > 0) {
+    return { erro: `Preencha todos os campos: ${faltando.join(', ')}.` }
+  }
+
   const { error } = await supabase.from('leads').insert({
     temperatura: (limpar(formData.get('temperatura')) as Temperatura) ?? 'FRIO',
-    nome_lead: limpar(formData.get('nome_lead')),
-    telefone: limpar(formData.get('telefone')),
-    instagram: limpar(formData.get('instagram')),
-    email: limpar(formData.get('email')),
-    cidade: limpar(formData.get('cidade')),
+    nome_lead,
+    telefone,
+    instagram,
+    email,
+    cidade,
   })
 
   if (error) return { erro: error.message }

@@ -36,7 +36,7 @@ export default function NovoLeadModal({
       <div className="painel w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
         <h2 className="font-display text-2xl texto-dourado mb-1">Novo Lead</h2>
         <p className="text-xs mb-5" style={{ color: 'var(--texto-suave)' }}>
-          Cadastro rápido — complete os dados depois que o lead esquentar.
+          Preencha todos os campos para cadastrar o lead.
         </p>
 
         <form action={acao} className="space-y-4">
@@ -62,29 +62,29 @@ export default function NovoLeadModal({
           </div>
 
           <div>
-            <label className="campo">Nome / apelido (opcional)</label>
-            <input name="nome_lead" className="input-ouro" placeholder="Como você reconhece este lead" />
+            <label className="campo">Nome / apelido</label>
+            <input name="nome_lead" required className="input-ouro" placeholder="Como você reconhece este lead" />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="campo">Telefone</label>
-              <input name="telefone" className="input-ouro" placeholder="(00) 00000-0000" />
+              <input name="telefone" required className="input-ouro" placeholder="(00) 00000-0000" />
             </div>
             <div>
               <label className="campo">Instagram</label>
-              <input name="instagram" className="input-ouro" placeholder="@usuario" />
+              <input name="instagram" required className="input-ouro" placeholder="@usuario" />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="campo">E-mail</label>
-              <input name="email" type="email" className="input-ouro" placeholder="email@exemplo.com" />
+              <input name="email" type="email" required className="input-ouro" placeholder="email@exemplo.com" />
             </div>
             <div>
               <label className="campo">Cidade</label>
-              <input name="cidade" className="input-ouro" placeholder="Cidade / UF" />
+              <input name="cidade" required className="input-ouro" placeholder="Cidade / UF" />
             </div>
           </div>
 
