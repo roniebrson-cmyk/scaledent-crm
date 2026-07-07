@@ -5,6 +5,7 @@ import { getPerfil } from '@/lib/perfil'
 import { TEMPERATURAS, formatBRL, type Lead } from '@/lib/types'
 import KanbanBoard from '@/components/KanbanBoard'
 import MetricasPanel from '@/components/MetricasPanel'
+import DashboardPanel from '@/components/DashboardPanel'
 import { sair } from './actions'
 
 export const dynamic = 'force-dynamic'
@@ -123,6 +124,7 @@ export default async function HomePage() {
           <>
             <KanbanBoard leadsIniciais={leads} temperaturas={TEMPERATURAS} />
             <MetricasPanel />
+            <DashboardPanel leads={leads} />
           </>
         )}
       </main>
