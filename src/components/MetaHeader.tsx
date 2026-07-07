@@ -42,7 +42,7 @@ export default function MetaHeader({
     <>
       <div className="flex flex-col items-center justify-center min-w-0 px-2">
         <div className="flex items-center gap-1.5">
-          <span className="text-[9px] uppercase tracking-[0.15em]" style={{ color: 'var(--texto-fraco)' }}>
+          <span className="text-[11px] uppercase tracking-[0.15em] font-medium" style={{ color: 'var(--texto-suave)' }}>
             Meta de Faturamento · {mesAno(prazo)}
           </span>
           {isAdmin && (
@@ -52,7 +52,7 @@ export default function MetaHeader({
                 setDataPrazo(prazo)
                 setEditando(true)
               }}
-              className="text-[10px] leading-none opacity-60 hover:opacity-100 transition-opacity"
+              className="text-xs leading-none opacity-60 hover:opacity-100 transition-opacity"
               title="Editar meta"
               aria-label="Editar meta"
             >
@@ -60,17 +60,17 @@ export default function MetaHeader({
             </button>
           )}
         </div>
-        <p className="font-display text-lg md:text-xl leading-none texto-dourado">
+        <p className="font-display text-2xl md:text-3xl leading-tight texto-dourado">
           {formatBRLc(meta)}
         </p>
-        <div className="w-full max-w-[240px] mt-1">
-          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--preto-2)' }}>
+        <div className="w-full max-w-[300px] mt-1.5">
+          <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--preto-2)' }}>
             <div
               className="h-full dourado-grad transition-all"
               style={{ width: `${progresso}%` }}
             />
           </div>
-          <p className="text-[9px] text-center mt-0.5" style={{ color: 'var(--texto-suave)' }}>
+          <p className="text-[11px] text-center mt-1" style={{ color: 'var(--texto-suave)' }}>
             {formatBRLc(receita)} · {pctReal}%
           </p>
         </div>

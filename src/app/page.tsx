@@ -55,19 +55,19 @@ export default async function HomePage() {
           borderBottom: '1px solid var(--borda)',
         }}
       >
-        <div className="max-w-[1600px] mx-auto px-4 md:px-6 h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-6 h-24 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
             <Image
               src="/logo-scaledent.png"
               alt="ScaleDent"
-              width={130}
-              height={98}
+              width={170}
+              height={128}
               priority
-              className="h-11 w-auto"
+              className="h-16 w-auto"
             />
-            <div className="hidden sm:block border-l pl-3" style={{ borderColor: 'var(--borda)' }}>
-              <p className="font-display text-lg leading-none texto-dourado">CRM</p>
-              <p className="text-[10px] tracking-wider" style={{ color: 'var(--texto-fraco)' }}>
+            <div className="hidden sm:block border-l pl-3.5" style={{ borderColor: 'var(--borda)' }}>
+              <p className="font-display text-2xl leading-none texto-dourado">CRM</p>
+              <p className="text-[11px] tracking-wider mt-0.5" style={{ color: 'var(--texto-fraco)' }}>
                 MENTORIA PREMIUM
               </p>
             </div>
@@ -84,18 +84,18 @@ export default async function HomePage() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-5 text-right">
+            <div className="hidden md:flex items-center gap-6 text-right">
               <div>
-                <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--texto-fraco)' }}>
+                <p className="text-[11px] uppercase tracking-wider" style={{ color: 'var(--texto-fraco)' }}>
                   Clientes
                 </p>
-                <p className="font-display text-lg texto-dourado leading-none">{totalClientes}</p>
+                <p className="font-display text-2xl texto-dourado leading-none mt-0.5">{totalClientes}</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--texto-fraco)' }}>
+                <p className="text-[11px] uppercase tracking-wider" style={{ color: 'var(--texto-fraco)' }}>
                   Receita fechada
                 </p>
-                <p className="font-display text-lg texto-dourado leading-none">{formatBRL(receita)}</p>
+                <p className="font-display text-2xl texto-dourado leading-none mt-0.5">{formatBRL(receita)}</p>
               </div>
             </div>
             {perfil?.role === 'ADMIN' && (
