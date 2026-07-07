@@ -1,13 +1,17 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { getPerfil } from '@/lib/perfil'
 import { TEMPERATURAS, formatBRL, type Lead } from '@/lib/types'
 import KanbanBoard from '@/components/KanbanBoard'
+import MetricasPanel from '@/components/MetricasPanel'
 import { sair } from './actions'
 
 export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
   const supabase = await createClient()
+  const perfil = await getPerfil()
 
   const { data, error } = await supabase
     .from('leads')
@@ -73,6 +77,20 @@ export default async function HomePage() {
                 <p className="font-display text-lg texto-dourado leading-none">{formatBRL(receita)}</p>
               </div>
             </div>
+            {perfil?.role === 'ADMIN' && (
+              <Link
+                href="/admin"
+                className="text-xs px-3 py-1.5 rounded-lg font-medium transition-opacity hover:opacity-90 dourado-grad"
+                style={{ color: '#17130a' }}
+              >
+                ⚙ Usuários
+              </Link>
+            )}
+            {perfil && (
+              <span className="hidden lg:inline text-xs" style={{ color: 'var(--texto-fraco)' }}>
+                {perfil.nome}
+              </span>
+            )}
             <form action={sair}>
               <button
                 type="submit"
@@ -102,7 +120,10 @@ export default async function HomePage() {
             </p>
           </div>
         ) : (
-          <KanbanBoard leadsIniciais={leads} temperaturas={TEMPERATURAS} />
+          <>
+            <KanbanBoard leadsIniciais={leads} temperaturas={TEMPERATURAS} />
+            <MetricasPanel />
+          </>
         )}
       </main>
     </div>
