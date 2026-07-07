@@ -60,10 +60,10 @@ export default async function HomePage() {
             <Image
               src="/logo-scaledent.png"
               alt="ScaleDent"
-              width={170}
-              height={128}
+              width={190}
+              height={143}
               priority
-              className="h-16 w-auto"
+              className="h-20 w-auto"
             />
             <div className="hidden sm:block border-l pl-3.5" style={{ borderColor: 'var(--borda)' }}>
               <p className="font-display text-2xl leading-none texto-dourado">CRM</p>
