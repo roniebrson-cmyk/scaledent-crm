@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+:root {
+  --preto: #0a0a0b;
+  --preto-2: #0f0f11;
+  --painel: #16161a;
+  --painel-2: #1c1c21;
+  --borda: rgba(201, 162, 69, 0.16);
+  --borda-forte: rgba(201, 162, 69, 0.34);
+  --dourado: #c9a245;
+  --dourado-claro: #e4c078;
+  --dourado-brilho: #f0d79a;
+  --texto: #ededf0;
+  --texto-suave: #a0a0a8;
+  --texto-fraco: #6b6b73;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201, 162, 69, 0.06), transparent 60%),
+    var(--preto);
+  color: var(--texto);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: 0.04em;
+}
+
+/* Scrollbar dourada discreta */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 69, 0.22);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 162, 69, 0.4);
+}
+
+/* Painel de vidro escuro */
+.painel {
+  background: linear-gradient(180deg, var(--painel) 0%, var(--preto-2) 100%);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+}
+
+.dourado-grad {
+  background: linear-gradient(135deg, var(--dourado-claro) 0%, var(--dourado) 55%, #a5822f 100%);
+}
+
+.texto-dourado {
+  background: linear-gradient(135deg, var(--dourado-brilho), var(--dourado));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-ouro {
+  background: linear-gradient(135deg, var(--dourado-claro) 0%, var(--dourado) 60%, #a5822f 100%);
+  color: #17130a;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: filter 0.15s ease, transform 0.05s ease;
+}
+.btn-ouro:hover {
+  filter: brightness(1.08);
+}
+.btn-ouro:active {
+  transform: translateY(1px);
+}
+
+.input-ouro {
+  background: var(--preto-2);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  color: var(--texto);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.875rem;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+.input-ouro::placeholder {
+  color: var(--texto-fraco);
+}
+.input-ouro:focus {
+  outline: none;
+  border-color: var(--borda-forte);
+}
+
+label.campo {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--texto-suave);
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
