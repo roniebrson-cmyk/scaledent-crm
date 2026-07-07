@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   PieChart,
   Pie,
@@ -124,11 +125,13 @@ function Card({
 }
 
 export default function DashboardPanel({ leads }: { leads: Lead[] }) {
+  const router = useRouter()
   const inicial = useMemo(() => mesAtual(), [])
   const [inicio, setInicio] = useState(inicial.inicio)
   const [fim, setFim] = useState(inicial.fim)
   const [metricas, setMetricas] = useState<MetricaRow[]>([])
   const [carregando, setCarregando] = useState(true)
+  const [atualizando, startAtualizar] = useTransition()
 
   const carregar = useCallback(async () => {
     setCarregando(true)
@@ -140,6 +143,14 @@ export default function DashboardPanel({ leads }: { leads: Lead[] }) {
   useEffect(() => {
     carregar()
   }, [carregar])
+
+  // Relê as métricas (planilha) e o CRM (leads, via servidor) na hora.
+  function atualizar() {
+    startAtualizar(() => {
+      carregar()
+      router.refresh()
+    })
+  }
 
   // ---------- CRM ----------
   const porTemp = useMemo(() => {
@@ -247,6 +258,14 @@ export default function DashboardPanel({ leads }: { leads: Lead[] }) {
           </button>
           <button onClick={atalhoAno} className="text-xs px-3 py-2 rounded-lg border transition-colors hover:opacity-80" style={{ borderColor: 'var(--borda)', color: 'var(--texto-suave)' }}>
             Ano
+          </button>
+          <button
+            onClick={atualizar}
+            disabled={atualizando || carregando}
+            className="btn-ouro text-xs px-3 py-2 disabled:opacity-60 flex items-center gap-1.5"
+          >
+            <span className={atualizando || carregando ? 'animate-spin inline-block' : 'inline-block'}>🔄</span>
+            {atualizando || carregando ? 'Atualizando…' : 'Atualizar'}
           </button>
         </div>
       </div>
