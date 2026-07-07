@@ -6,6 +6,7 @@ import { TEMPERATURAS, formatBRL, type Lead } from '@/lib/types'
 import KanbanBoard from '@/components/KanbanBoard'
 import MetricasPanel from '@/components/MetricasPanel'
 import DashboardPanel from '@/components/DashboardPanel'
+import MetaHeader from '@/components/MetaHeader'
 import { sair } from './actions'
 
 export const dynamic = 'force-dynamic'
@@ -35,6 +36,15 @@ export default async function HomePage() {
     .filter((l) => l.temperatura === 'CLIENTE')
     .reduce((s, l) => s + (l.valor_contrato ?? 0), 0)
 
+  // Configuração da meta de faturamento (linha única)
+  const { data: cfg } = await supabase
+    .from('configuracoes')
+    .select('meta_faturamento, meta_prazo')
+    .eq('id', 1)
+    .maybeSingle()
+  const meta = Number(cfg?.meta_faturamento ?? 1500000)
+  const metaPrazo = cfg?.meta_prazo ?? '2026-12-31'
+
   return (
     <div className="min-h-screen">
       {/* Cabeçalho */}
@@ -61,6 +71,16 @@ export default async function HomePage() {
                 MENTORIA PREMIUM
               </p>
             </div>
+          </div>
+
+          {/* Meta de faturamento — centralizada */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <MetaHeader
+              meta={meta}
+              prazo={metaPrazo}
+              receita={receita}
+              isAdmin={perfil?.role === 'ADMIN'}
+            />
           </div>
 
           <div className="flex items-center gap-4">
@@ -124,7 +144,7 @@ export default async function HomePage() {
           <>
             <KanbanBoard leadsIniciais={leads} temperaturas={TEMPERATURAS} />
             <MetricasPanel />
-            <DashboardPanel leads={leads} />
+            <DashboardPanel leads={leads} meta={meta} metaPrazo={metaPrazo} />
           </>
         )}
       </main>

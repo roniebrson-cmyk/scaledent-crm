@@ -102,6 +102,24 @@ export function formatBRL(v: number | null | undefined): string {
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
 
+export function formatBRLc(v: number | null | undefined): string {
+  if (v === null || v === undefined) return 'R$ 0'
+  return v.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    maximumFractionDigits: 0,
+  })
+}
+
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
+export function mesAno(d: string | null | undefined): string {
+  if (!d) return '—'
+  const [y, m] = d.split('T')[0].split('-')
+  const mi = Number(m) - 1
+  if (mi < 0 || mi > 11) return d
+  return `${MESES[mi]}/${y}`
+}
+
 export function formatData(d: string | null | undefined): string {
   if (!d) return '—'
   const [y, m, day] = d.split('T')[0].split('-')

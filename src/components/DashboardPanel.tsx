@@ -18,7 +18,7 @@ import {
   Legend,
 } from 'recharts'
 import { carregarMetricas } from '@/app/actions-metricas'
-import { TEMPERATURAS, formatBRL, type Lead } from '@/lib/types'
+import { TEMPERATURAS, formatBRL, formatBRLc, mesAno, type Lead } from '@/lib/types'
 
 // ---------- helpers de data ----------
 function ymdLocal(d: Date) {
@@ -124,7 +124,15 @@ function Card({
   )
 }
 
-export default function DashboardPanel({ leads }: { leads: Lead[] }) {
+export default function DashboardPanel({
+  leads,
+  meta,
+  metaPrazo,
+}: {
+  leads: Lead[]
+  meta: number
+  metaPrazo: string
+}) {
   const router = useRouter()
   const inicial = useMemo(() => mesAtual(), [])
   const [inicio, setInicio] = useState(inicial.inicio)
@@ -278,6 +286,51 @@ export default function DashboardPanel({ leads }: { leads: Lead[] }) {
         <Kpi label="Receita Fechada" valor={formatBRL(receita)} destaque />
         <Kpi label="Ticket Médio" valor={formatBRL(ticket)} />
       </div>
+
+      {/* Meta de Faturamento */}
+      {(() => {
+        const pctMeta = meta > 0 ? (receita / meta) * 100 : 0
+        const pctLabel = Math.round(pctMeta)
+        const falta = Math.max(meta - receita, 0)
+        return (
+          <div className="painel p-5 mb-4" style={{ border: '1px solid var(--borda-forte)' }}>
+            <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <p className="text-sm font-semibold" style={{ color: 'var(--texto)' }}>
+                🎯 Meta de Faturamento · {mesAno(metaPrazo)}
+              </p>
+              <p className="font-display text-2xl texto-dourado leading-none">{pctLabel}%</p>
+            </div>
+
+            <div className="h-5 rounded-full overflow-hidden relative" style={{ background: 'var(--preto-2)' }}>
+              <div
+                className="h-full dourado-grad transition-all flex items-center justify-end pr-2"
+                style={{ width: `${Math.min(pctMeta, 100)}%` }}
+              >
+                {pctMeta > 12 && (
+                  <span className="text-[10px] font-bold" style={{ color: '#17130a' }}>
+                    {formatBRLc(receita)}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mt-4">
+              <div>
+                <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--texto-fraco)' }}>Realizado</p>
+                <p className="font-display text-xl" style={{ color: OURO_CLARO }}>{formatBRLc(receita)}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--texto-fraco)' }}>Falta</p>
+                <p className="font-display text-xl" style={{ color: 'var(--texto)' }}>{formatBRLc(falta)}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--texto-fraco)' }}>Meta</p>
+                <p className="font-display text-xl" style={{ color: 'var(--texto-suave)' }}>{formatBRLc(meta)}</p>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
 
       {/* Funil */}
       <div className="painel p-4 mb-4">
