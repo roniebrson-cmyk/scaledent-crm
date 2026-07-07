@@ -1,8 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { salvarMetrica } from '@/app/actions-metricas'
+import { salvarMetrica, carregarMetricas } from '@/app/actions-metricas'
 
 type Row = {
   ativacoes: number
@@ -127,12 +126,7 @@ export default function MetricasPanel() {
 
   const carregar = useCallback(async () => {
     setCarregando(true)
-    const supabase = createClient()
-    const { data } = await supabase
-      .from('metricas')
-      .select('*')
-      .gte('data', inicio)
-      .lte('data', fim)
+    const data = await carregarMetricas(inicio, fim)
     const map: Record<string, Row> = {}
     for (const r of data ?? []) {
       map[r.data] = {

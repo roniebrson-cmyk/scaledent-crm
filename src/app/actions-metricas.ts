@@ -14,6 +14,27 @@ const CAMPOS = [
 type Campo = (typeof CAMPOS)[number]
 
 /**
+ * Carrega as métricas do usuário logado no período informado.
+ * Roda no servidor (sessão autenticada garantida).
+ */
+export async function carregarMetricas(inicio: string, fim: string) {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return []
+
+  const { data } = await supabase
+    .from('metricas')
+    .select('*')
+    .eq('owner_id', user.id)
+    .gte('data', inicio)
+    .lte('data', fim)
+
+  return data ?? []
+}
+
+/**
  * Salva o valor de um indicador para uma data (upsert por owner_id + data).
  */
 export async function salvarMetrica(data: string, campo: string, valor: number) {
