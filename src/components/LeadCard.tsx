@@ -1,7 +1,7 @@
 'use client'
 
 import type { Lead } from '@/lib/types'
-import { formatBRL } from '@/lib/types'
+import { formatBRL, whatsappLink } from '@/lib/types'
 
 export default function LeadCard({
   lead,
@@ -28,6 +28,7 @@ export default function LeadCard({
 
   const qtdInteracoes = lead.interacoes?.length ?? 0
   const ultima = lead.interacoes?.[0]
+  const waLink = whatsappLink(lead.telefone)
 
   return (
     <article
@@ -44,7 +45,20 @@ export default function LeadCard({
       }}
     >
       <p className="font-medium text-sm leading-tight" style={{ color: 'var(--texto)' }}>
-        {titulo}
+        {titulo === lead.telefone && waLink ? (
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="hover:underline"
+            title="Abrir no WhatsApp"
+          >
+            {titulo}
+          </a>
+        ) : (
+          titulo
+        )}
       </p>
 
       <div className="mt-1.5 flex flex-col gap-0.5 text-[11px]" style={{ color: 'var(--texto-suave)' }}>
@@ -52,7 +66,26 @@ export default function LeadCard({
         {lead.instagram && lead.instagram !== titulo && (
           <span>📷 @{lead.instagram.replace(/^@/, '')}</span>
         )}
-        {lead.telefone && lead.telefone !== titulo && <span>📞 {lead.telefone}</span>}
+        {lead.telefone && lead.telefone !== titulo && (
+          <span>
+            📞{' '}
+            {waLink ? (
+              <a
+                href={waLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="hover:underline"
+                style={{ color: '#25D366' }}
+                title="Abrir no WhatsApp"
+              >
+                {lead.telefone}
+              </a>
+            ) : (
+              lead.telefone
+            )}
+          </span>
+        )}
       </div>
 
       {lead.temperatura === 'CLIENTE' && lead.valor_contrato != null && (

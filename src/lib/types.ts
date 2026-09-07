@@ -129,6 +129,16 @@ export function mesAno(d: string | null | undefined): string {
   return `${MESES[mi]}/${y}`
 }
 
+// Link do WhatsApp a partir do telefone. Assume DDI 55 (Brasil) para números
+// nacionais (DDD + número); números que já vêm com DDI são usados como estão.
+export function whatsappLink(telefone: string | null | undefined): string | null {
+  if (!telefone) return null
+  let d = telefone.replace(/\D/g, '').replace(/^0+/, '')
+  if (!d) return null
+  if (d.length <= 11) d = '55' + d
+  return `https://wa.me/${d}`
+}
+
 export function formatData(d: string | null | undefined): string {
   if (!d) return '—'
   const [y, m, day] = d.split('T')[0].split('-')

@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Lead, Temperatura } from '@/lib/types'
-import { CANAIS, formatData, formatBRL } from '@/lib/types'
+import { CANAIS, formatData, formatBRL, whatsappLink } from '@/lib/types'
 import {
   atualizarLead,
   excluirLead,
@@ -176,7 +176,21 @@ export default function LeadDrawer({
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="campo">Telefone</label>
+                    <label className="campo flex items-center justify-between">
+                      <span>Telefone</span>
+                      {whatsappLink(lead.telefone) && (
+                        <a
+                          href={whatsappLink(lead.telefone)!}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-medium hover:underline"
+                          style={{ color: '#25D366' }}
+                          title="Abrir no WhatsApp"
+                        >
+                          💬 WhatsApp
+                        </a>
+                      )}
+                    </label>
                     <input name="telefone" defaultValue={lead.telefone ?? ''} className="input-ouro" />
                   </div>
                   <div>
