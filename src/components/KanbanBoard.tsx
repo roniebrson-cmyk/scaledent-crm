@@ -114,8 +114,15 @@ export default function KanbanBoard({
                   </span>
                 </div>
 
-                {/* Cartões */}
-                <div className="p-2.5 space-y-2.5 flex-1">
+                {/* Cartões — colunas do funil (exceto Cliente) limitam ~10 cartões e rolam */}
+                <div
+                  className="p-2.5 space-y-2.5 flex-1 kanban-scroll"
+                  style={
+                    t.key !== 'CLIENTE'
+                      ? { maxHeight: 1200, overflowY: 'auto' }
+                      : undefined
+                  }
+                >
                   {cards.length === 0 ? (
                     <button
                       onClick={() => setNovoCol(t.key)}

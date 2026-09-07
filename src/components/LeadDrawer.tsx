@@ -176,7 +176,7 @@ export default function LeadDrawer({
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="campo flex items-center justify-between">
+                    <label className="campo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span>Telefone</span>
                       {whatsappLink(lead.telefone) && (
                         <a
@@ -194,7 +194,7 @@ export default function LeadDrawer({
                     <input name="telefone" defaultValue={lead.telefone ?? ''} className="input-ouro" />
                   </div>
                   <div>
-                    <label className="campo flex items-center justify-between">
+                    <label className="campo" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span>Instagram</span>
                       {instagramLink(lead.instagram) && (
                         <a
