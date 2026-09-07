@@ -1,4 +1,4 @@
-export type Temperatura = 'FRIO' | 'MORNO' | 'QUENTE' | 'CLIENTE'
+export type Temperatura = 'CONTATO' | 'FRIO' | 'MORNO' | 'QUENTE' | 'CLIENTE'
 
 export type Canal =
   | 'WHATSAPP'
@@ -50,6 +50,15 @@ export const TEMPERATURAS: {
   borda: string
   emoji: string
 }[] = [
+  {
+    key: 'CONTATO',
+    label: '1º Contato',
+    descricao: 'Contato inicial',
+    cor: '#8A94A8',
+    bg: 'rgba(138,148,168,0.08)',
+    borda: 'rgba(138,148,168,0.30)',
+    emoji: '👋',
+  },
   {
     key: 'FRIO',
     label: 'Frio',

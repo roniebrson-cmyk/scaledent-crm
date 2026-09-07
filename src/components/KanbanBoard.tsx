@@ -64,13 +64,13 @@ export default function KanbanBoard({
             {leads.length} contato{leads.length !== 1 ? 's' : ''} no funil · arraste os cartões entre as etapas
           </p>
         </div>
-        <button onClick={() => setNovoCol('FRIO')} className="btn-ouro px-4 py-2.5 text-sm">
+        <button onClick={() => setNovoCol('CONTATO')} className="btn-ouro px-4 py-2.5 text-sm">
           + Novo Lead
         </button>
       </div>
 
       <div className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0">
-        <div className="flex gap-4" style={{ minWidth: '980px' }}>
+        <div className="flex gap-4" style={{ minWidth: '1280px' }}>
           {temperaturas.map((t) => {
             const cards = leads.filter((l) => l.temperatura === t.key)
             const emHover = overCol === t.key

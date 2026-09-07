@@ -34,7 +34,7 @@ export async function criarLead(formData: FormData) {
   }
 
   const { error } = await supabase.from('leads').insert({
-    temperatura: (limpar(formData.get('temperatura')) as Temperatura) ?? 'FRIO',
+    temperatura: (limpar(formData.get('temperatura')) as Temperatura) ?? 'CONTATO',
     nome_lead,
     telefone,
     instagram,
