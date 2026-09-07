@@ -139,6 +139,17 @@ export function whatsappLink(telefone: string | null | undefined): string | null
   return `https://wa.me/${d}`
 }
 
+// Link do Instagram a partir do @ (aceita "@handle", "handle" ou URL completa).
+export function instagramLink(instagram: string | null | undefined): string | null {
+  if (!instagram) return null
+  let h = instagram.trim()
+  const m = h.match(/instagram\.com\/([^/?#]+)/i)
+  if (m) h = m[1]
+  h = h.replace(/^@/, '').replace(/\/+$/, '').trim()
+  if (!h) return null
+  return `https://instagram.com/${h}`
+}
+
 export function formatData(d: string | null | undefined): string {
   if (!d) return '—'
   const [y, m, day] = d.split('T')[0].split('-')

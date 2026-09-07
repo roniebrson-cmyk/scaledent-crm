@@ -1,7 +1,7 @@
 'use client'
 
 import type { Lead } from '@/lib/types'
-import { formatBRL, whatsappLink } from '@/lib/types'
+import { formatBRL, whatsappLink, instagramLink } from '@/lib/types'
 
 export default function LeadCard({
   lead,
@@ -29,6 +29,8 @@ export default function LeadCard({
   const qtdInteracoes = lead.interacoes?.length ?? 0
   const ultima = lead.interacoes?.[0]
   const waLink = whatsappLink(lead.telefone)
+  const igLink = instagramLink(lead.instagram)
+  const igTitulo = lead.instagram ? `@${lead.instagram.replace(/^@/, '')}` : null
 
   return (
     <article
@@ -56,6 +58,17 @@ export default function LeadCard({
           >
             {titulo}
           </a>
+        ) : titulo === igTitulo && igLink ? (
+          <a
+            href={igLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="hover:underline"
+            title="Abrir no Instagram"
+          >
+            {titulo}
+          </a>
         ) : (
           titulo
         )}
@@ -63,8 +76,25 @@ export default function LeadCard({
 
       <div className="mt-1.5 flex flex-col gap-0.5 text-[11px]" style={{ color: 'var(--texto-suave)' }}>
         {lead.cidade && <span>📍 {lead.cidade}</span>}
-        {lead.instagram && lead.instagram !== titulo && (
-          <span>📷 @{lead.instagram.replace(/^@/, '')}</span>
+        {lead.instagram && titulo !== igTitulo && (
+          <span>
+            📷{' '}
+            {igLink ? (
+              <a
+                href={igLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="hover:underline"
+                style={{ color: '#E1306C' }}
+                title="Abrir no Instagram"
+              >
+                @{lead.instagram.replace(/^@/, '')}
+              </a>
+            ) : (
+              `@${lead.instagram.replace(/^@/, '')}`
+            )}
+          </span>
         )}
         {lead.telefone && lead.telefone !== titulo && (
           <span>

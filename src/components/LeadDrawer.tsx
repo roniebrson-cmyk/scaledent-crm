@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Lead, Temperatura } from '@/lib/types'
-import { CANAIS, formatData, formatBRL, whatsappLink } from '@/lib/types'
+import { CANAIS, formatData, formatBRL, whatsappLink, instagramLink } from '@/lib/types'
 import {
   atualizarLead,
   excluirLead,
@@ -194,7 +194,21 @@ export default function LeadDrawer({
                     <input name="telefone" defaultValue={lead.telefone ?? ''} className="input-ouro" />
                   </div>
                   <div>
-                    <label className="campo">Instagram</label>
+                    <label className="campo flex items-center justify-between">
+                      <span>Instagram</span>
+                      {instagramLink(lead.instagram) && (
+                        <a
+                          href={instagramLink(lead.instagram)!}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-medium hover:underline"
+                          style={{ color: '#E1306C' }}
+                          title="Abrir no Instagram"
+                        >
+                          📷 Instagram
+                        </a>
+                      )}
+                    </label>
                     <input name="instagram" defaultValue={lead.instagram ?? ''} className="input-ouro" placeholder="@usuario" />
                   </div>
                 </div>
